@@ -12,7 +12,11 @@ import re
 import adafruit_am2320
 import board
 import busio
+import requests
 
+
+newHeaders = {'Content-type': 'application/json', 'Accept': 'text/plain'}
+url = 'http://10.176.69.101:5206/api/Logs'
 i2c = busio.I2C(board.SCL, board.SDA)
 
 class Wave2():
@@ -95,8 +99,8 @@ class CurrentValues():
         if data[0] != 1:
             raise ValueError("Incompatible current values version (Expected 1, got {})".format(data[0]))
         json_objection = {
-            "Raspberry Pi ID":ID,
-            "Date":int(time.time()),
+          #  "Raspberry Pi ID":ID,
+          #  "Date":int(time.time()),
             "outside":{
                 "Temperature":sensor.temperature,
                 "Humidity":sensor.relative_humidity
@@ -161,6 +165,9 @@ def _main():
                 print(current_values)
                 print(id)
                 json.dump(current_values,file, indent=4)
+
+                response = requests.post(url, json.dumps(current_values), headers=newHeaders)
+                print(response)
                # file.write(current_values) #the readings
               #  writer.writerow(outsidereadings) #the reading of outside values
                 wave2.disconnect()
