@@ -94,13 +94,13 @@ class CurrentValues():
     def from_bytes(cls, rawdata):
         ID = Wave2.get_piID()
         sensor = adafruit_am2320.AM2320(i2c)
-        
+        print(ID)
         data = struct.unpack("<4B8H", rawdata)
         if data[0] != 1:
             raise ValueError("Incompatible current values version (Expected 1, got {})".format(data[0]))
         json_objection = {
-          #  "Raspberry Pi ID":ID,
-          #  "Date":int(time.time()),
+            "id": "",
+            "serialnumber":ID,
             "outside":{
                 "Temperature":sensor.temperature,
                 "Humidity":sensor.relative_humidity
@@ -109,7 +109,7 @@ class CurrentValues():
                 "Temperature":data[6] / 100,
                 "Humidity":data[1] / 2,
                 "Radon":data[4],
-                "Radon LTA":data[5]
+                "RadonLTA":data[5]
     }
 }
 
