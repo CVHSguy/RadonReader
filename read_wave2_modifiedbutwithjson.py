@@ -13,9 +13,14 @@ import adafruit_am2320
 import board
 import busio
 import requests
+import socket
+import asyncio
 
-
+host = socket.gethostname()
+ip = socket.gethostbyname(host)
+print(ip)
 newHeaders = {'Content-type': 'application/json', 'Accept': 'text/plain'}
+#url = 'http://'+ip+'/api/Logs'
 url = 'http://10.176.69.101:5206/api/Logs'
 i2c = busio.I2C(board.SCL, board.SDA)
 
@@ -145,10 +150,19 @@ def _argparser():
 
 
 def _main():
-
     args = _argparser()
     wave2 = Wave2(args.SERIAL_NUMBER)
     id = Wave2.get_piID()
+
+   # geturl = 'http://10.176.69.101:5206/api/Dataloggers/'+id
+   # puturl = 'http://10.176.69.101:5206/api/Dataloggers/'
+
+    
+
+    #getreponse = requests.get(geturl, headers=newHeaders)
+     #   if(getreponse = "something null lol change this")
+      #      wtf = requests.post(puturl)
+    
 
     def _signal_handler(sig, frame):
         wave2.disconnect()
