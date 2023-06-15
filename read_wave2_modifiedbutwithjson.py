@@ -13,14 +13,8 @@ import adafruit_am2320
 import board
 import busio
 import requests
-import socket
-import asyncio
 
-host = socket.gethostname()
-ip = socket.gethostbyname(host)
-print(ip)
 newHeaders = {'Content-type': 'application/json', 'Accept': 'text/plain'}
-#url = 'http://'+ip+'/api/Logs'
 url = 'http://10.176.69.101:5206/api/Logs'
 i2c = busio.I2C(board.SCL, board.SDA)
 
