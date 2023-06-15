@@ -148,16 +148,6 @@ def _main():
     wave2 = Wave2(args.SERIAL_NUMBER)
     id = Wave2.get_piID()
 
-   # geturl = 'http://10.176.69.101:5206/api/Dataloggers/'+id
-   # puturl = 'http://10.176.69.101:5206/api/Dataloggers/'
-
-    
-
-    #getreponse = requests.get(geturl, headers=newHeaders)
-     #   if(getreponse = "something null lol change this")
-      #      wtf = requests.post(puturl)
-    
-
     def _signal_handler(sig, frame):
         wave2.disconnect()
         sys.exit(0)
